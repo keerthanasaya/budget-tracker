@@ -41,9 +41,3 @@ budget-tracker/
 - **`categories`**: Stores income or expense categories scoped per user (`user_id`).
 - **`transactions`**: Stores transaction details (`amount`, `type`, `description`, `date`, `category_id`) linked to the user.
 
-## Key Development Rules & Guidelines
-1. **Authentication**: All endpoints (except auth itself) require authentication. Call `requireAuth()` helper from `config/helpers.php` at the start of any protected controller.
-2. **Session Cookies**: The frontend sends credentials (`credentials: 'include'`) to ensure standard PHP session cookie (`PHPSESSID`) is transmitted.
-3. **JSON API**: Request payloads are parsed from raw input via `getJsonInput()`. Responses are returned in JSON using `jsonResponse($data, $status)`.
-4. **Database Integrity**: Deleting a category updates references in `transactions` to `NULL` (via `ON DELETE SET NULL`), preventing orphan records. Deleting a user deletes all associated data (`ON DELETE CASCADE`).
-5. **No Frameworks**: Keep the frontend lightweight. Write vanilla DOM interactions in `js/app.js` and pure CSS styles.
