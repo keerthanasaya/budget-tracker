@@ -40,4 +40,3 @@ budget-tracker/
 - **`users`**: Stores username, email, and password hash (hashed using `PASSWORD_DEFAULT`).
 - **`categories`**: Stores income or expense categories scoped per user (`user_id`).
 - **`transactions`**: Stores transaction details (`amount`, `type`, `description`, `date`, `category_id`) linked to the user.
-
