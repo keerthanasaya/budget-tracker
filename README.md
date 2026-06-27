@@ -1,0 +1,43 @@
+
+
+## Project Architecture
+The application is a full-stack personal finance tracker consisting of:
+- **Backend (PHP)**: RESTful APIs under `api/` for managing user accounts, transactions, categories, and summaries. Database connectivity is handled using PDO.
+- **Frontend (Vanilla JS/CSS/HTML)**: Dynamic client dashboard that communicates with the PHP APIs using `fetch()`. Auth state is persisted using standard PHP session cookies.
+- **Database (MySQL)**: Standard tables for `users`, `categories`, and `transactions` linked with foreign keys.
+
+```
+budget-tracker/
+├── api/
+│   ├── auth.php         # User registration, login, logout, and self check
+│   ├── categories.php   # CRUD for income/expense categories (scoped to logged-in user)
+│   ├── summary.php      # Aggregates totals (income, expense, balance) and category breakdowns
+│   └── transactions.php # CRUD for transactions (filters by type, category, month)
+├── config/
+│   ├── db.php           # PDO Database connection pool configuration
+│   └── helpers.php      # Helper functions (requireAuth, getJsonInput, jsonResponse)
+├── css/
+│   └── styles.css       # Custom stylesheets for layout and design
+├── js/
+│   └── app.js           # Frontend client router and API request handlers
+├── database.sql         # SQL schema definitions for MySQL
+├── index.html           # Main dashboard interface
+└── login.html           # Authentication interface (login/register)
+```
+
+## Running the Project Locally (with XAMPP)
+1. **Move files**: Ensure the folder is located at `C:\xampp\htdocs\budget-tracker`.
+2. **Database Setup**:
+   - Start **Apache** and **MySQL** from the XAMPP Control Panel.
+   - Open **phpMyAdmin** at `http://localhost/phpmyadmin`.
+   - Click the **SQL** tab and execute the contents of `database.sql` to initialize the database schema.
+3. **Database Configuration**:
+   - Open `config/db.php` and verify connection details (`DB_USER`, `DB_PASS`, `DB_NAME`). Update password if XAMPP MySQL root has a password.
+4. **Access UI**:
+   - Open your browser to `http://localhost/budget-tracker/login.html` to register a new user and log in.
+
+## Database Tables
+- **`users`**: Stores username, email, and password hash (hashed using `PASSWORD_DEFAULT`).
+- **`categories`**: Stores income or expense categories scoped per user (`user_id`).
+- **`transactions`**: Stores transaction details (`amount`, `type`, `description`, `date`, `category_id`) linked to the user.
+
